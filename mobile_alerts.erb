@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>Mobile Alert List</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <h1>Mobile Alerts For Conference Attendees</h1>
+        <table>
+            <tr><th>Last Name</th><th>First Name</th><th>Phone Number</th></tr>
+            <% mobile_list.each do | person | %>
+            <tr>
+                <td><%= person[0] %></td>
+                <td><%= person[1] %></td>
+                <td><%= person[2] %></td>
+            </tr>
+            <% end %>
+        </table>
+    </body>
+</html>
