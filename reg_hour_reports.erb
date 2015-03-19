@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>Registration Hours Report</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="css/style.css" type="text/css">
+    </head>
+    <body>
+        <table>
+                   <thead>
+                       <tr>
+                           <th>Hour of the Day</th>
+                           <th>People Who Registered</th>
+                       </tr>
+                   </thead>
+                   <tbody>
+                       <% hours_tracker.each do | key, value|  %>
+                       <tr>
+                           <td><%= key.to_s.rjust(20) %></td>
+                           <td><%= value.to_s.rjust(20) %></td>
+                       </tr>
+                       <% end %>
+                   </tbody>
+               </table>
+    </body>
+</html>
