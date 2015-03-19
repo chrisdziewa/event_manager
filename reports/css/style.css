@@ -5,15 +5,13 @@ html {
 }
 
 table {
-    border: 2px solid black;
+    border: 2px solid rgba(200,200,200,.7);
     padding: 10px 0 0;
     margin: 0 auto;
     width: 500px;
-    -webkit-column-rule: 4px outset #ff00ff; /* Chrome, Safari, Opera */
-    -moz-column-rule: 4px outset #ff00ff; /* Firefox */
+    border-collapse: collapse;
 }
 
-table {  border-collapse: collapse; }
 table td { border-left: 1px solid rgba(200,200,200,.5);}
 table td:first-child { border-left: none; }
 
@@ -31,7 +29,7 @@ tr {
 th {
     padding-top: 10px;
     padding-bottom: 10px;
-    border-bottom: 3px solid rgba(100,100,100,1);
+    border-bottom: 3px solid rgba(200,200,200,.5);
 }
 
 tr:nth-child(even) {

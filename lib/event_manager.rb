@@ -61,6 +61,10 @@ def get_hour_from_date_time(date_time)
     register_hour = DateTime.strptime(date_time, '%m/%d/%y %H:%M').hour
 end
 
+def get_most_popular_key(hours_hash)
+    hours_hash.max_by{|k,v| v}[0]
+end
+
 puts "Event Manager Initialized!"
 
 # Thank you template
@@ -98,22 +102,24 @@ contents.each do | row |
     zipcode = clean_zipcode(row[:zipcode])
     legislators = legislators_by_zipcode(zipcode)
 
-    # # Build thank you letters
-    # form_letter = erb_template.result(binding)
-    # save_thank_you_letters(id, form_letter)
+    # Build thank you letters
+    form_letter = erb_template.result(binding)
+    save_thank_you_letters(id, form_letter)
 
-    # if clean_phone_number(phone) != "bad number"
-    #     mobile_list.push([last_name, name , clean_phone_number(phone)])
-    # end
+    if clean_phone_number(phone) != "bad number"
+        mobile_list.push([last_name, name , clean_phone_number(phone)])
+    end
 end
 
+# Hours with most signups
+popular_hour = get_most_popular_key(hours_tracker)
 
+# Create hour report webpage
 completed_hours_report = reg_hours_template.result(binding)
 save_hours_report(completed_hours_report)
 
-
+# Create a webpage for valid mobile contacts
 completed_mobile_list = mobile_template.result(binding)
-
 save_mobile_contacts(completed_mobile_list)
 
 
