@@ -57,12 +57,16 @@ def clean_phone_number(phone_number)
     end
 end
 
-def get_hour_from_date_time(date_time)
-    register_hour = DateTime.strptime(date_time, '%m/%d/%y %H:%M').hour
+def format_date_time(date_time)
+    register_hour = DateTime.strptime(date_time, '%m/%d/%y %H:%M')
 end
 
 def get_most_popular_key(hours_hash)
     hours_hash.max_by{|k,v| v}[0]
+end
+
+def get_day_name(date)
+    Date::DAYNAMES[date.wday]
 end
 
 puts "Event Manager Initialized!"
@@ -76,8 +80,15 @@ mobile_alerts = File.read "mobile_alerts.erb"
 mobile_template = ERB.new mobile_alerts
 mobile_list = []
 
+# track hours of registration for report
 hours_tracker = {}
 (0..24).each  { | hour | hours_tracker[hour] = 0 }
+
+#track days that participants registered on
+reg_days_tracker = {}
+Date::DAYNAMES.each do |day|
+    reg_days_tracker[day] = 0
+end
 
 #registration hour report template
 reg_hours = File.read "reg_hour_reports.erb"
@@ -92,8 +103,8 @@ contents.each do | row |
     phone = row[:homephone]
 
     # Get dates and times and convert to DateTime
-    date_time = row[:regdate]
-    register_hour = get_hour_from_date_time(date_time)
+    formatted_date_time = format_date_time(row[:regdate])
+    register_hour = formatted_date_time.hour
 
     # add a tally to current our in hours_tracker
     hours_tracker[register_hour]  +=  1
@@ -106,10 +117,17 @@ contents.each do | row |
     form_letter = erb_template.result(binding)
     save_thank_you_letters(id, form_letter)
 
+    # track registration day frequencies
+    day = get_day_name(formatted_date_time)
+    reg_days_tracker[day] += 1
+
+
     if clean_phone_number(phone) != "bad number"
         mobile_list.push([last_name, name , clean_phone_number(phone)])
     end
 end
+
+popular_day = get_most_popular_key(reg_days_tracker)
 
 # Hours with most signups
 popular_hour = get_most_popular_key(hours_tracker)

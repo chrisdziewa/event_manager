@@ -8,8 +8,15 @@
         <link rel="stylesheet" href="css/style.css" type="text/css">
     </head>
     <body>
-        <h1>Conference Report: Hours of Registration</h1>
+        <h1>Conference Report: Registration information</h1>
         <p>Most sign-ups occured around: <%= popular_hour %>:00 in the day.</p>
+        <p>The most popular day for signups was <%= popular_day %>.</p>
+        <h4>List of days with registrations:</h4>
+        <ul>
+            <% reg_days_tracker.each do |day, number| %>
+            <li><%= day[0..2] %>: <%= number  %></li>
+            <% end %>
+        </ul>
         <table>
                    <thead>
                        <tr>

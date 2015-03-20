@@ -10,6 +10,9 @@ table {
     margin: 0 auto;
     width: 500px;
     border-collapse: collapse;
+    position: relative;
+    top: -150px;
+    left: 30px;
 }
 
 table td { border-left: 1px solid rgba(200,200,200,.5);}
@@ -34,6 +37,46 @@ th {
 
 tr:nth-child(even) {
     background: rgba(200,200,200,.5);
+}
+
+p {
+    width: 20%;
+}
+
+ul {
+    padding-left: 0;
+}
+
+li {
+    list-style-type: none;
+    display: inline-block;
+    background: rgba(180, 230, 240,.6);
+    padding: 5px;
+}
+
+@media only screen and (max-width:  1200px) {
+    h1, h2, p,
+    table {
+    }
+    table {
+        top: 0;
+        left: 0;
+    }
+
+    h1, h2, p, ul {
+        margin: 10px auto;
+        width: 90%;
+    }
+}
+
+@media only screen and (max-width: 600px){
+    table {
+        width: 90%;
+    }
+
+    li {
+        margin-bottom: 5px;
+    }
 }
 
 
